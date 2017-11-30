@@ -8,15 +8,19 @@ class RoutePayload
 {
     protected $routes;
 
-    public function __construct(Router $router)
+    public function __construct(Router $router, $additionalRoutes = null)
     {
         $this->router = $router;
         $this->routes = $this->nameKeyedRoutes();
+
+	    if($additionalRoutes){
+		    $this->routes = $this->routes->merge($additionalRoutes);
+	    }
     }
 
-    public static function compile(Router $router, $group = false)
+    public static function compile(Router $router, $group = false, $additionalRoutes = null)
     {
-        return (new static($router))->applyFilters($group);
+        return (new static($router, $additionalRoutes))->applyFilters($group);
     }
 
     public function applyFilters($group)

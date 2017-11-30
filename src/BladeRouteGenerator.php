@@ -20,16 +20,16 @@ class BladeRouteGenerator
         $this->router = $router;
     }
 
-    public function getRoutePayload($group = false)
+    public function getRoutePayload($group = false, $additionalRoutes = null)
     {
-        return RoutePayload::compile($this->router, $group);
+        return RoutePayload::compile($this->router, $group, $additionalRoutes);
     }
 
-    public function generate($group = false)
+    public function generate($group = false, $additionalRoutes = null)
     {
         $this->prepareDomain();
 
-        $json = $this->getRoutePayload($group)->toJson();
+        $json = $this->getRoutePayload($group, $additionalRoutes)->toJson();
 
         $routeFunction = file_get_contents($this->getRouteFilePath());
 

@@ -19,8 +19,8 @@ class ZiggyServiceProvider extends ServiceProvider
         });
 
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
-            $bladeCompiler->directive('routes', function ($group) {
-                return "<?php echo app('" . BladeRouteGenerator::class . "')->generate({$group}); ?>";
+            $bladeCompiler->directive('routes', function ($expression) {
+                return "<?php echo app('" . BladeRouteGenerator::class . "')->generate({$expression}); ?>";
             });
         });
 
